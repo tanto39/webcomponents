@@ -1,3 +1,4 @@
+// Пользовательский элемент комментария
 class CommentElement extends HTMLElement {
   constructor() {
     super();
@@ -12,10 +13,8 @@ class CommentElement extends HTMLElement {
     this.likeButton = shadowRoot.querySelector(".like-button");
     this.likeCount = shadowRoot.querySelector(".like-count");
     this.nestedCommentsContainer = shadowRoot.querySelector(".nested-comments");
-
-    // Создаем форму для ответа
-    this.replyForm = this.createReplyForm();
-    shadowRoot.appendChild(this.replyForm);
+    this.replyForm = shadowRoot.querySelector("form");
+    this.replyForm.style.display = "none";
   }
 
   connectedCallback() {
@@ -23,6 +22,7 @@ class CommentElement extends HTMLElement {
     this.replyButton.addEventListener("click", () => this.toggleReplyForm());
     this.deleteButton.addEventListener("click", () => this.deleteComment());
     this.likeButton.addEventListener("click", () => this.incrementLike());
+    this.replyForm.addEventListener("submit", (e) => this.addReply(e));
   }
 
   disconnectedCallback() {
@@ -30,18 +30,7 @@ class CommentElement extends HTMLElement {
     this.replyButton.removeEventListener("click", () => this.toggleReplyForm());
     this.deleteButton.removeEventListener("click", () => this.deleteComment());
     this.likeButton.removeEventListener("click", () => this.incrementLike());
-  }
-
-  createReplyForm() {
-    // Создаем форму для ответа
-    const form = document.createElement("form");
-    form.innerHTML = `
-          <input type="text" name="reply" class="input-comment" placeholder="Введите ваш комментарий">
-          <button type="submit">Ответить</button>
-      `;
-    form.style.display = "none";
-    form.addEventListener("submit", (e) => this.addReply(e));
-    return form;
+    this.replyForm.removeEventListener("submit", (e) => this.addReply(e));
   }
 
   toggleReplyForm() {
@@ -76,20 +65,28 @@ class CommentElement extends HTMLElement {
 
 customElements.define("comment-element", CommentElement);
 
+// Пользовательский элемент секции комментариев
 class CommentSection extends HTMLElement {
   constructor() {
     super();
-    // Создаем контейнер для комментариев и форму для добавления комментария
-    this.commentsContainer = document.createElement("div");
-    this.appendChild(this.commentsContainer);
+    // Получаем шаблон секции комментариев и создаем Shadow DOM
+    const template = document.getElementById("comment-section-template").content;
+    const shadowRoot = this.attachShadow({ mode: "open" });
+    shadowRoot.appendChild(template.cloneNode(true));
 
-    this.form = document.createElement("form");
-    this.form.innerHTML = `
-          <input type="text" name="comment" class="input-comment" placeholder="Введите ваш комментарий">
-          <button type="submit">Добавить комментарий</button>
-      `;
+    // Находим контейнер для комментариев и форму
+    this.commentsContainer = shadowRoot.querySelector(".comments-container");
+    this.form = shadowRoot.querySelector("form");
+  }
+
+  connectedCallback() {
+    // Добавляем обработчик события для формы
     this.form.addEventListener("submit", (e) => this.addComment(e));
-    this.appendChild(this.form);
+  }
+
+  disconnectedCallback() {
+    // Удаляем обработчик события для формы
+    this.form.removeEventListener("submit", (e) => this.addComment(e));
   }
 
   addComment(event) {
