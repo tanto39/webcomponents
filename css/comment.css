@@ -1,0 +1,70 @@
+:host {
+  --background-color: #fff;
+  --like-color: #007bff;
+  --reply-button-color: #4caf50;
+  --delete-button-color: #f44336;
+  --action-color: #555;
+  --border-color: #ccc;
+  --focus-color: #007bff;
+  --button-color: #fff;
+  --font-size: 18px;
+  display: block;
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--background-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.comment-content {
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  font-size: var(--font-size);
+}
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--action-color);
+}
+.nested-comments {
+  margin-top: 1rem;
+  padding-left: 20px;
+  border-left: 2px solid var(--border-color);
+}
+.like-button {
+  cursor: pointer;
+  color: var(--like-color);
+}
+button {
+  padding: 0.2rem 0.5rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+button {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: var(--reply-button-color);
+  color: var(--button-color);
+  font-size: var(--font-size);
+}
+button.delete {
+  background-color: var(--delete-button-color);
+}
+input[type="text"] {
+  width: calc(100% - 22px);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: var(--font-size);
+  transition: border-color 0.3s;
+}
+input[type="text"]:focus {
+  border-color: var(--focus-color);
+}
