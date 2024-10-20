@@ -10,8 +10,10 @@
   <body>
     <div class="main">
       <main>
-        <h1>Заголовок новости</h1>
-        <p>Текст новости...</p>
+        <h1>Заголовок новости. КТ сделана.</h1>
+        <p>Текст новости. Пришла невероятно важная для всего человечества новость - Гутнев Андрей сделал
+          контрольную точку! Оставьте комментарий, чтобы выразить свое восхищение этим знаменательным событием.
+        </p>
       </main>
 
       <comment-section></comment-section>
@@ -27,6 +29,8 @@
           --action-color: #555;
           --border-color: #ccc;
           --focus-color: #007bff;
+          --button-color: #fff;
+          --font-size: 18px;
           display: block;
           margin: 1rem 0;
           padding: 1rem;
@@ -38,6 +42,7 @@
         .comment-content {
           margin-bottom: 1rem;
           line-height: 1.4;
+          font-size: var(--font-size);
         }
         .actions {
           display: flex;
@@ -49,7 +54,7 @@
         .nested-comments {
           margin-top: 1rem;
           padding-left: 20px;
-          border-left: 2px solid #eee;
+          border-left: 2px solid var(--border-color);
         }
         .like-button {
           cursor: pointer;
@@ -68,7 +73,8 @@
           border-radius: 3px;
           cursor: pointer;
           background-color: var(--reply-button-color);
-          color: white;
+          color: var(--button-color);
+          font-size: var(--font-size);
         }
         button.delete {
           background-color: var(--delete-button-color);
@@ -79,7 +85,7 @@
           margin-bottom: 1rem;
           border: 1px solid var(--border-color);
           border-radius: 4px;
-          font-size: 16px;
+          font-size: var(--font-size);
           transition: border-color 0.3s;
         }
         input[type="text"]:focus {
@@ -95,7 +101,9 @@
           <button class="reply">Ответить</button>
           <button class="delete">Удалить</button>
         </div>
-        <div class="nested-comments"></div>
+        <div class="nested-comments">
+          <slot name="nested"></slot>
+        </div>
         <form>
           <input type="text" name="reply" placeholder="Введите ваш комментарий" />
           <button type="submit">Ответить</button>
@@ -109,6 +117,7 @@
           --border-color: #ccc;
           --focus-color: #007bff;
           --button-color: #418a43;
+          --font-size: 19px;
           display: block;
           margin: 20px 0;
         }
@@ -118,7 +127,7 @@
           margin-bottom: 1rem;
           border: 1px solid var(--border-color);
           border-radius: 4px;
-          font-size: 16px;
+          font-size: var(--font-size);
           transition: border-color 0.3s;
         }
         input[type="text"]:focus {
@@ -131,9 +140,18 @@
           cursor: pointer;
           background-color: var(--button-color);
           color: white;
+          font-size: var(--font-size);
         }
       </style>
-      <div class="comments-container"></div>
+      <div class="comments-container">
+        <comment-element>
+          <span slot="content">Первый комментарий</span>
+          <comment-element slot="nested"><span slot="content">Вложенный комментарий</span></comment-element>
+        </comment-element>
+        <comment-element>
+          <span slot="content">Второй комментарий</span>
+        </comment-element>
+      </div>
       <form>
         <input type="text" name="comment" placeholder="Введите ваш комментарий" />
         <button type="submit">Добавить комментарий</button>
