@@ -56,8 +56,8 @@ button {
 button.delete {
   background-color: var(--delete-button-color);
 }
-input[type="text"] {
-  width: calc(100% - 22px);
+input[type="text"], textarea {
+  width: calc(100% - 35px);
   padding: 1rem;
   margin-bottom: 1rem;
   border: 1px solid var(--border-color);
@@ -67,4 +67,16 @@ input[type="text"] {
 }
 input[type="text"]:focus {
   border-color: var(--focus-color);
+}
+.comment-header {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.comment-author {
+  color: #333;
+  font-size: 1rem;
+}
+textarea {
+  min-height: 100px;
+  resize: vertical;
 }

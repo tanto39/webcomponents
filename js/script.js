@@ -42,9 +42,10 @@ class CommentElement extends HTMLElement {
     // Обрабатываем добавление ответа
     event.preventDefault();
     const replyContent = this.replyForm.reply.value;
+    const replyAuthor = this.replyForm.author.value;
     if (replyContent) {
       const reply = document.createElement("comment-element");
-      reply.innerHTML = `<span slot="content">${replyContent}</span>`;
+      reply.innerHTML = `<span slot="author">${replyAuthor}</span><span slot="content">${replyContent}</span>`;
       this.nestedCommentsContainer.appendChild(reply);
       this.replyForm.reset();
       this.replyForm.style.display = "none";
@@ -93,9 +94,10 @@ class CommentSection extends HTMLElement {
     // Обрабатываем добавление нового комментария
     event.preventDefault();
     const commentContent = this.form.comment.value;
+    const commentAuthor = this.form.author.value;
     if (commentContent) {
       const comment = document.createElement("comment-element");
-      comment.innerHTML = `<span slot="content">${commentContent}</span>`;
+      comment.innerHTML = `<span slot="author">${commentAuthor}</span><span slot="content">${commentContent}</span>`;
       this.commentsContainer.appendChild(comment);
       this.form.reset();
     }
