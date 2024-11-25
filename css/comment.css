@@ -74,7 +74,7 @@ input[type="text"]:focus {
 }
 .comment-author {
   color: #333;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 textarea {
   min-height: 100px;

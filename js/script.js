@@ -42,7 +42,7 @@ class CommentElement extends HTMLElement {
     // Обрабатываем добавление ответа
     event.preventDefault();
     const replyContent = this.replyForm.reply.value;
-    const replyAuthor = this.replyForm.author.value;
+    const replyAuthor = this.replyForm.author.value ? this.replyForm.author.value : 'Аноним';
     if (replyContent) {
       const reply = document.createElement("comment-element");
       reply.innerHTML = `<span slot="author">${replyAuthor}</span><span slot="content">${replyContent}</span>`;
@@ -94,7 +94,7 @@ class CommentSection extends HTMLElement {
     // Обрабатываем добавление нового комментария
     event.preventDefault();
     const commentContent = this.form.comment.value;
-    const commentAuthor = this.form.author.value;
+    const commentAuthor = this.form.author.value ? this.form.author.value : 'Аноним';
     if (commentContent) {
       const comment = document.createElement("comment-element");
       comment.innerHTML = `<span slot="author">${commentAuthor}</span><span slot="content">${commentContent}</span>`;
